@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Expensus</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <!-- Add your site or application content here -->
+        <div class="add-trans-page modal fade" id="add-transaction-page" tabindex="-1" role="dialog" 
+            aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h2 class="modal-title text-center">Insert New Transaction</h2>
+                    </div>
+                    <form class="add-transaction-form form-horizontal" role="form">
+                        
+                        <div class="form-group">
+                            <div class="col-sm-4 control-label">
+                                <label for="trans-category">Trans Category: </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="trans-category">
+                                    <option value="rent">Rent</option>
+                                    <option value="groceries">Groceries</option>
+                                    <option value="gas">Gas</option>
+                                    <option value="electricity">Electricity</option>
+                                    <option value="personal">Recrecation</option>
+                                    <option value="transportation">Transportation</option>
+                                    <option value="medical">Medical</option>
+                                    <option value="insurance">Insurance</option>
+                                    <option value="miscellaneous">Misc</option>
+                                    <option value="salary">Salary</option>
+                                    <option value="interest">Interest</option>
+                                    <option value="bonus">Bonus</option>
+                                </select>    
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 control-label">
+                                <label for="trans-amount">Trans Amount: </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="trans-amount">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-6">
+                                <label class="radio-inline">
+                                    <input type="radio" name="trans-type" value="debit" checked> Debit: 
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="trans-type" value="credit"> Credit: 
+                                </label>    
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 control-label">
+                                <label for="trans-description">Trans Description: </label>
+                            </div>
+                            <div class="col-sm-6"> 
+                                <textarea class="form-control" name="trans-description" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-5"></div>
+                            <input class="btn btn-success" type="submit" name="submit" value="Add Transaction">
+                        </div>
+                    </form>
+                </div> <!-- end modal content -->
+            </div> <!-- end modal dialog -->
+        </div> <!-- end add trans page -->
+        <div class="container" id="main">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle Navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="" class="navbar-brand home-page-link">Expensus</a>
+                    </div> <!-- end navbar-header -->
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="" class="all-trans-link">View All Transactions</a></li>
+                            <li><a href="" data-toggle="modal" data-target=".add-trans-page" class="add-trans-link">Add Transaction</a></li>
+                        </ul>
+                    </div> <!-- end navbar-collapse -->
+                </div> <!-- end container -->
+            </nav>
+            <div class="row">
+                <div class="home-page">
+                    <div class="well">
+                        <h2 class="page-header text-center">Break it Down | Hover over chart for more info</h2>
+                        <div class="chart-view-div"></div>
+                        <hr>
+                        <h2 class="page-header text-center">This Month at a Glance</h2>
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                    <th>Category</th>
+                                </tr>
+                            </thead>
+                            <tbody class="latest-five-target"></tbody>
+                        </table>
+                    </div>
+                </div> <!-- end home page -->
+                <div class="all-trans-page">
+                    <div class="well">
+                        <h2 class="page-header text-center">The Big Picture</h2>
+                        <div class="col-sm-2"></div>
+                        <div class="tools row">
+                            <label class="col-sm-2 control-label" for="trans-amount">Filter by Category: </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="search-input" class="form-control" name="trans-amount">
+                            </div>
+                        </div>
+                        <div class="col-sm-3"></div>
+                        <hr>
+                        <ul id="listTrans"></ul>
+                    </div>
+                </div> <!-- end all trans page -->
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+        <!-- Template Scripts -->
+        <script type="text/x-handlebars-template" id="latest-five-template">
+        {{#each transactions}}
+            <tr>
+                <td>{{transaction-date transactionDate}}</td>
+                <td>${{amount}}</td>
+                <td>{{capitalize transactionType}}</td>
+                <td>{{capitalize category}}</td>
+            </tr>
+        {{/each}}
+        </script>
+        <script id="chart-template" type="text/x-handlebars-template">
+            <canvas id="expense-chart"></canvas>
+        </script>
+        <script type="text/x-handlebars-template" id="all-trans-template">
+        {{#each transactions}}
+            <li>
+                <input type="hidden" value="{{id}}" class="id">
+                <span class="list-head row">
+                    <span class="col-sm-5">
+                        {{transaction-date transactionDate}}
+                    </span>
+                    <span class="col-sm-6">
+                        {{capitalize category}}
+                    </span> 
+                    <span class="show-details btn btn-primary col-sm-1">Details</span>
+                    
+                    <div class="details">
+                        Type: {{capitalize transactionType}}<br>
+                        Amount: {{amount}}<br>
+                        Description: {{description}}
+                    </div>
+                </span>
+                
+            </li>
+        {{/each}}
+        </script>
+        <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+        <!-- vendor scripts -->
+        <script src="js/vendor/jquery-1.10.2.min.js"></script>
+        <script src="js/vendor/handlebars-v2.0.0.js"></script>
+        <script src="js/vendor/underscore.js"></script>
+        <script src="js/vendor/backbone-1.1.2.js"></script>
+        <script src="js/vendor/moment.js"></script>
+        <script src="js/vendor/backbone.localStorage.js"></script>
+        <script src="js/vendor/Chart.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+
+        <!-- main scripts -->
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/models/transaction.js"></script>
+        <script src="js/collections/transactions.js"></script>
+        <script src="js/views/latest-five-view.js"></script>
+        <script src="js/views/all-trans-view.js"></script>
+        <script src="js/views/add-transaction-view.js"></script>
+        <script src="js/views/chart-view.js"></script>
+        <script src="js/views/application-view.js"></script>
+        <script src="js/routers/app-router.js"></script>
+    </body>
+</html>
